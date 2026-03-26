@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>[Insert Text]</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0e0e0e;
+  color: #eaeaea;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 3.4rem;
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+h2 {
+  font-size: 1.8rem;              /* stronger hierarchy */
+  margin-top: 55px;              /* more breathing room */
+  margin-bottom: 10px;
+  border-bottom: 1px solid #333;
+  padding-left: 28px;
+  position: relative;
+  font-weight: 600;              /* cleaner emphasis */
+  letter-spacing: 0.3px;         /* subtle polish */
+}
+
+p { color: #cfcfcf; }
+
+.section { margin-top: 30px; }
+
+.results {
+  margin-top: 15px;
+  padding: 15px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid #2a2a2a;
+}
+
+details {
+  margin-top: 15px;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+summary { cursor: pointer; }
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+/* COLLAPSE SYSTEM */
+.section.collapsed > .collapsible-content { display: none; }
+.subsection.collapsed > .subsection-content { display: none; }
+.subsection.collapsed > .subsection-summary { display: none; }
+
+/* HEADERS */
+.section > h2,
+.subsection-header,
+.summary-header {
+  cursor: pointer;
+  position: relative;
+}
+
+/* ARROWS */
+.section > h2::before,
+.subsection-header::before,
+.summary-header::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+}
+
+/* SIZE MATCHING */
+.subsection-header {
+  font-size: 1.3rem;                 /* slightly larger */
+  padding-left: 28px;
+  color: #9aaaff;                   /* clean blue accent */
+  font-weight: 600;                 /* stronger presence */
+  letter-spacing: 0.2px;            /* subtle polish */
+}
+
+.summary-header {
+  font-size: 1.15rem;
+  padding-left: 48px;  /* deeper indent than subsection */
+  color: #ffcc66;
+  line-height: 1.2;
+}
+
+/* SECTION ARROW */
+.section > h2::before { transform: rotate(90deg); }
+.section.collapsed > h2::before { transform: rotate(0deg); }
+
+/* REMOVE PROJECT OVERVIEW ARROW */
+#project-overview::before {
+  content: none !important;
+}
+
+.subsection {
+  margin-left: 10px;
+  border-left: 1px solid #2a2a2a;
+  padding-left: 10px;
+}
+
+/* SUMMARY ARROW */
+.summary-header::before {
+  content: "▸";
+  position: absolute;
+  left: 20px;  /* align with new indent */
+  font-size: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.summary-header.collapsed::before {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.summary-content {
+  display: block;
+  margin-left: 48px;
+}
+.summary-header.collapsed + .summary-content { display: none; }
+
+@media (min-width: 1024px) {
+  .container { max-width: 1200px; }
+  body { font-size: 18px; }
+}
+
+/* DAY MODE */
+body.light-mode {
+  background: #ffffff;
+  color: #111;
+}
+
+body.light-mode p {
+  color: #333;
+}
+
+body.light-mode h1,
+body.light-mode h2 {
+  color: #000;
+}
+
+body.light-mode .results {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+}
+
+body.light-mode details {
+  background: #fafafa;
+  border: 1px solid #ddd;
+}
+
+body.light-mode .subsection-header {
+  color: #2f5fd0;
+}
+
+body.light-mode .summary-header {
+  color: #cc8800;
+}
+
+body.light-mode a {
+  color: #2f5fd0;
+}
+
+
+/* =========================
+   TEAL UTILITY SYSTEM
+========================= */
+
+/* Back to Portfolio */
+.back-link {
+  color: #2dd4bf;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.back-link:hover {
+  color: #14b8a6;
+}
+
+/* View Code */
+details summary {
+  color: #2dd4bf;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+details summary:hover {
+  color: #14b8a6;
+}
+
+/* LIGHT MODE ADJUSTMENT */
+body.light-mode .back-link,
+body.light-mode details summary {
+  color: #0d9488;
+}
+
+body.light-mode .back-link:hover,
+body.light-mode details summary:hover {
+  color: #0f766e;
+}
+
+/* Smooth transitions */
+.back-link,
+details summary {
+  transition: color 0.2s ease;
+}
+
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div style="margin-bottom:20px;">
+  <a href="https://shadyeggs.github.io/" class="back-link">
+    ← Back to Portfolio
+  </a>
+</div>
+
+<h1>[Insert Text]</h1>
+
+
+<div class="controls" style="gap:10px; align-items:center;">
+  <button id="toggleBtn" onclick="toggleAll()">Expand all</button>
+  <button id="modeBtn" onclick="toggleMode()">Day Mode</button>
+
+  <a href="https://github.com/ShadyEggs/Unicorn-Company-Analysis" target="_blank" style="display:flex; align-items:center;">
+    <svg height="22" width="22" viewBox="0 0 16 16" fill="currentColor">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 
+      6.53 5.47 7.59.4.07.55-.17.55-.38 
+      0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94
+      -.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+      -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 
+      1.87.87 2.33.66.07-.52.28-.87.51-1.07
+      -1.78-.2-3.64-.89-3.64-3.95 
+      0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 
+      0 0 .67-.21 2.2.82.64-.18 1.32-.27 
+      2-.27s1.36.09 2 .27c1.53-1.04 
+      2.2-.82 2.2-.82.44 1.1.16 1.92.08 
+      2.12.51.56.82 1.27.82 2.15 
+      0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 
+      1.48 0 1.07-.01 1.93-.01 2.2 
+      0 .21.15.46.55.38A8.013 8.013 0 
+      0 0 16 8c0-4.42-3.58-8-8-8z"/>
+    </svg>
+  </a>
+</div>
+
+
+<h2>Project Background</h2>
+<div class="collapsible-content">
+  <p>[Insert Text]</p>
+</div>
+
+<h2>Project Goal</h2>
+<div class="collapsible-content">
+  <p>[Insert Text]</p>
+</div>
+
+<div class="section">
+<h2>Technical Implementation</h2>
+<div class="collapsible-content">
+
+<!-- SECTION 1 -->
+<div class="subsection">
+<div class="subsection-header">Data Loading & Inspection</div>
+<div class="subsection-content">
+<p>[Text Here]</p>
+<details><summary>View Code</summary><pre>[Code Here]</pre></details>
+<div class="results"><strong>Results:</strong><p>[Results Here]</p></div>
+</div>
+</div>
+<div class="subsection-summary">
+<div class="summary-header">Summary</div>
+<div class="summary-content"><p>[Text Here]</p></div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="subsection">
+<div class="subsection-header">Data Cleaning</div>
+<div class="subsection-content">
+<p>[Text Here]</p>
+<details><summary>View Code</summary><pre>[Code Here]</pre></details>
+<div class="results"><strong>Results:</strong><p>[Results Here]</p></div>
+</div>
+</div>
+<div class="subsection-summary">
+<div class="summary-header">Summary</div>
+<div class="summary-content"><p>[Text Here]</p></div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="subsection">
+<div class="subsection-header">Feature Engineering</div>
+<div class="subsection-content">
+<p>[Text Here]</p>
+<details><summary>View Code</summary><pre>[Code Here]</pre></details>
+<div class="results"><strong>Results:</strong><p>[Results Here]</p></div>
+</div>
+</div>
+<div class="subsection-summary">
+<div class="summary-header">Summary</div>
+<div class="summary-content"><p>[Text Here]</p></div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="subsection">
+<div class="subsection-header">Visualization & Analysis</div>
+<div class="subsection-content">
+<p>[Text Here]</p>
+<details><summary>View Code</summary><pre>[Code Here]</pre></details>
+<div class="results"><strong>Results:</strong><p>[Results Here]</p></div>
+</div>
+</div>
+<div class="subsection-summary">
+<div class="summary-header">Summary</div>
+<div class="summary-content"><p>[Text Here]</p></div>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2 id="project-overview" style="padding-left:0; cursor:default;">Project Overview</h2>
+<div class="collapsible-content">
+<p>[Text Here]</p>
+</div>
+</div>
+
+<script>
+let expanded = false;
+
+function toggleAll() {
+  const sections = document.querySelectorAll(".section, .subsection");
+  const summaries = document.querySelectorAll(".summary-header");
+
+  expanded = !expanded;
+
+  sections.forEach(el => {
+    const header = el.querySelector(":scope > h2");
+    if (header && header.id === "project-overview") return;
+    el.classList.toggle("collapsed", !expanded);
+  });
+
+  summaries.forEach(el => {
+    el.classList.toggle("collapsed", !expanded);
+  });
+
+  document.getElementById("toggleBtn").textContent =
+    expanded ? "Collapse all" : "Expand all";
+}
+
+document.querySelectorAll(".section > h2").forEach(h => {
+  if (h.id === "project-overview") return;
+  h.addEventListener("click", () => {
+    h.parentElement.classList.toggle("collapsed");
+  });
+});
+
+document.querySelectorAll(".subsection-header").forEach(h => {
+  h.addEventListener("click", () => {
+    const subsection = h.closest(".subsection");
+    if (subsection) {
+      subsection.classList.toggle("collapsed");
+    }
+  });
+});
+
+document.querySelectorAll(".summary-header").forEach(h => {
+  h.addEventListener("click", (e) => {
+    e.stopPropagation();
+    h.classList.toggle("collapsed");
+  });
+});
+
+document.querySelectorAll(".section, .subsection").forEach(el => {
+  const header = el.querySelector(":scope > h2");
+  if (header && header.id === "project-overview") return;
+  el.classList.add("collapsed");
+});
+
+document.querySelectorAll(".summary-header").forEach(el => {
+  el.classList.add("collapsed");
+});
+
+function toggleMode() {
+  const body = document.body;
+  const btn = document.getElementById("modeBtn");
+
+  body.classList.toggle("light-mode");
+
+  if (body.classList.contains("light-mode")) {
+    btn.textContent = "Night Mode";
+  } else {
+    btn.textContent = "Day Mode";
+  }
+}
+
+</script>
+
+<footer style="margin-top:40px; text-align:center; color:#777;">
+© 2026 Alfred Rico
+</footer>
+
+</div>
+</body>
+</html>
