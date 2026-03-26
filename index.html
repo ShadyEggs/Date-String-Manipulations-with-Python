@@ -580,7 +580,8 @@ plt.plot()
 plt.xlabel("Week number")
 plt.ylabel("Number of lightning strikes")
 plt.title("Number of lightning strikes per week (2018)");
-
+plt.show()
+  
 # Adjusting
 plt.figure(figsize = (20, 5)) # Increase output size.
 plt.bar(x = df_by_week_2018['week'], height = df_by_week_2018['number_of_strikes'])
