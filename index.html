@@ -567,8 +567,8 @@ df.head(10)
 <div class="subsection">
 <div class="subsection-header">2018 Weekly Strikes Visualization</div>
 <div class="subsection-content">
-<p>Analysis shifts focus to weekly lightning strikes starting by filtering the original dataset to 2018 and then aggregating with <code>groupby()</code> and <code>sum()</code> before plotting</p>
-<p><strong>note</strong> - For pandas versions v.2.x+ you must set <code>numeric_only=True</code> in the sum() or suffer an error throw.</p>
+<p>The dataset is filtered to 2018 and then aggregated with <code>groupby()</code> and <code>sum()</code> before plotting</p>
+<p>Using pandas versions v.2.x+ requires setting <code>numeric_only=True</code> in the sum() during aggregation or an error will be thrown.</p>
 <details><summary>View Code</summary><pre>
 # 2018 data summed by week
 df_by_week_2018 = df[df['year'] == '2018'].groupby(['week']).sum(numeric_only=True).reset_index()
@@ -622,7 +622,7 @@ plt.show()
 <div class="subsection-content">
 <p>Analysis now shifts focus to quarterly lightning strikes for the full date range of avalaible data. Because it is easiest to work with numbers in millions, <code>.div(1000000)</code> will be used during aggregation before plotting.</p>
 <p>A <code>numbr_of_strikes_formatted</code> column is added representing the number in millions.</p>
-<p>A function is implemented to help label each bar in the graph with its corresponding <code>number_of_strikes_formatted</code> text. The pyplot function uses positional arguments x, y, and s for x-axis, y-axis, and text respectively.</p>
+<p>A labeling function is used to annotate each bar in the graph with its corresponding <code>number_of_strikes_formatted</code> text. The pyplot function uses positional arguments x, y, and s for x-axis, y-axis, and text respectively.</p>
 <details><summary>View Code</summary><pre>
 # 2016-2018 data by quarter and sum
 df_by_quarter = df.groupby(['quarter']).sum(numeric_only=True).reset_index()
@@ -699,8 +699,8 @@ plt.show()
 <div class="subsection">
 <div class="subsection-header">Year-over-Year Quarterly Strike Visualization</div>
 <div class="subsection-content">
-<p>For the final part of the analysis, two new columns are created to enable grouped comparisons representing two extracted substrings, <code>quarter</code> and <code>year</code></p>
-<p>A bar chart is created to analyze lightning activity across the same quarter in different years.</p>
+<p>For a grouped analysis, two new columns are created to enable grouped comparisons representing two extracted substrings, <code>quarter</code> and <code>year</code></p>
+<p>A grouped bar chart is created to highlight lightning activity across the same quarter in different years.</p>
 <details><summary>View Code</summary><pre>
 # Create two new columns
 df_by_quarter['quarter_number'] = df_by_quarter['quarter'].str[-2:]
