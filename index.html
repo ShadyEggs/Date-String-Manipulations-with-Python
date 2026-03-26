@@ -393,7 +393,7 @@ body.light-mode .df-table thead {
 <h2>Project Background</h2>
 <div class="collapsible-content">
   <p>The data used for this project represents cloud-to-ground lightning activity recorded by Vaisala's National Lightning Detection Network (NLDN), a system that tracks lightning strikes across the United States.</p>
-  <p>To make analysis of the data easier, the National Centers for Environmental Information distribute individual lightning strikes into spatial grids where all strikes that occur within a 0.1&deg latitude by 0.1&deg longitude are grouped and summarized daily. Each grid cell is represented by a pair of coordinates cooresponding to the center of that tile.</p>
+  <p>To make analysis of the data easier, the National Centers for Environmental Information distribute individual lightning strikes into spatial grids where all strikes that occur within a 0.1&deg latitude by 0.1&deg longitude are grouped and summarized daily. Each grid cell is represented by a pair of coordinates corresponding to the center of that tile.</p>
   <p>In this way, instead of working with millions of individual strike events, the data is structured by location and time with each row representing total strikes recorded within a tile on a given day.</p>
   <p>Due to the substantial size of the <code>csv</code> file used in this project, converting it to Parquet format was not sufficient to reduce its size, and it could not be uploaded to the repository. The data is instead available through the <code>bigquery-public-data.noaa_lightning.lightning_strikes</code> public table accessible through Google BigQuery.</p>
 </div>
@@ -620,8 +620,8 @@ plt.show()
 <div class="subsection">
 <div class="subsection-header">2016-2018 Quarterly Strikes Visualization</div>
 <div class="subsection-content">
-<p>Analysis now shifts focus to quarterly lightning strikes for the full date range of avalaible data. Because it is easiest to work with numbers in millions, <code>.div(1000000)</code> will be used during aggregation before plotting.</p>
-<p>A <code>numbr_of_strikes_formatted</code> column is added representing the number in millions.</p>
+<p>Analysis now shifts focus to quarterly lightning strikes for the full date range of available data. Because it is easiest to work with numbers in millions, <code>.div(1000000)</code> will be used during aggregation before plotting.</p>
+<p>A <code>number_of_strikes_formatted</code> column is added representing the number in millions.</p>
 <p>A labeling function is used to annotate each bar in the graph with its corresponding <code>number_of_strikes_formatted</code> text. The pyplot function uses positional arguments x, y, and s for x-axis, y-axis, and text respectively.</p>
 <details><summary>View Code</summary><pre>
 # 2016-2018 data by quarter and sum
@@ -783,7 +783,7 @@ plt.show()
 <div class="section">
 <h2 id="project-overview" style="padding-left:0; cursor:default;">Project Overview</h2>
 <div class="collapsible-content">
-<p>This project focuses on transforming and extracting meaningful features from data string data to enable structured temporal analysis. Using Python, raw string based date values are converted into datetime format and expanded into multiple time based components such as week, month, quarter, and year. These engineered features are then used to aggregate and visualize lightning strike activity across different time scales, revealing seasonal patterns and year-over-year trends. The project highlights how effective date manipulation serves as a critical step in preparing data for temporal analysis and visualization.</p>
+<p>This project focuses on transforming and extracting meaningful features from date string data to enable structured temporal analysis. Using Python, raw string based date values are converted into datetime format and expanded into multiple time based components such as week, month, quarter, and year. These engineered features are then used to aggregate and visualize lightning strike activity across different time scales, revealing seasonal patterns and year-over-year trends. The project highlights how effective date manipulation serves as a critical step in preparing data for temporal analysis and visualization.</p>
 </div>
 </div>
 
