@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Date String Manipulations</title>
 
+
+
 <style>
+
+/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -20,58 +24,59 @@ body {
   padding: 40px 20px;
 }
 
+/* ===== TYPOGRAPHY ===== */
 h1 {
   font-size: 3.4rem;
-  margin-bottom: 8px;
   font-weight: 700;
-  letter-spacing: 0.4px;
 }
 
 h2 {
-  font-size: 1.8rem;              /* stronger hierarchy */
-  margin-top: 55px;              /* more breathing room */
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  margin-top: 55px;
   border-bottom: 1px solid #333;
   padding-left: 28px;
   position: relative;
-  font-weight: 600;              /* cleaner emphasis */
-  letter-spacing: 0.3px;         /* subtle polish */
 }
 
-p { color: #cfcfcf; }
-
-.section { margin-top: 30px; }
-
-.results {
-  margin-top: 15px;
-  padding: 15px;
-  background: #1a1a1a;
-  border-radius: 8px;
-  border: 1px solid #2a2a2a;
+p, li {
+  color: #cfcfcf;
+  line-height: 1.75;
 }
 
-details {
-  margin-top: 15px;
-  background: #151515;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 10px;
+/* ===== SPACING ===== */
+.section { margin-top: 45px; }
+.collapsible-content { margin-top: 18px; }
+
+.subsection {
+  margin-top: 20px;
+  margin-left: 10px;
+  border-left: 1px solid #2a2a2a;
+  padding-left: 14px;
 }
 
-summary { cursor: pointer; }
-
+/* ===== CONTROLS ===== */
 .controls {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  align-items: center;
+  gap: 10px;
 }
 
-/* COLLAPSE SYSTEM */
+/* ===== BUTTONS ===== */
+button {
+  background: #2dd4bf;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover { background: #14b8a6; }
+
+/* ===== COLLAPSE SYSTEM ===== */
 .section.collapsed > .collapsible-content { display: none; }
 .subsection.collapsed > .subsection-content { display: none; }
-.subsection.collapsed > .subsection-summary { display: none; }
 
-/* HEADERS */
+/* ===== HEADERS ===== */
 .section > h2,
 .subsection-header,
 .summary-header {
@@ -79,272 +84,192 @@ summary { cursor: pointer; }
   position: relative;
 }
 
-/* ARROWS */
+/* ===== ARROWS ===== */
 .section > h2::before,
-.subsection-header::before,
-.summary-header::before {
+.subsection-header::before {
   content: "▸";
   position: absolute;
   left: 0;
 }
 
-/* SIZE MATCHING */
-.subsection-header {
-  font-size: 1.3rem;                 /* slightly larger */
-  padding-left: 28px;
-  color: #9aaaff;                   /* clean blue accent */
-  font-weight: 600;                 /* stronger presence */
-  letter-spacing: 0.2px;            /* subtle polish */
-}
-
-.summary-header {
-  font-size: 1.15rem;
-  padding-left: 48px;  /* deeper indent than subsection */
-  color: #ffcc66;
-  line-height: 1.2;
-}
-
-/* SECTION ARROW */
+/* SECTION */
 .section > h2::before { transform: rotate(90deg); }
 .section.collapsed > h2::before { transform: rotate(0deg); }
 
-/* REMOVE PROJECT OVERVIEW ARROW */
+/* SUBSECTION */
+.subsection-header {
+  color: #9aaaff;
+  padding-left: 28px;
+}
+.subsection-header::before { transform: rotate(90deg); }
+.subsection.collapsed > .subsection-header::before { transform: rotate(0deg); }
+
+/* SUMMARY */
+.summary-header {
+  color: #ffcc66;
+  padding-left: 48px;
+}
+.summary-header::before {
+  content: "▸";
+  position: absolute;
+  left: 20px;
+  transform: rotate(90deg);
+}
+.summary-header.collapsed::before {
+  transform: rotate(0deg);
+}
+
+.summary-content {
+  margin-left: 48px;
+}
+.summary-header.collapsed + .summary-content {
+  display: none;
+}
+
+/* REMOVE OVERVIEW ARROW */
 #project-overview::before {
   content: none !important;
 }
 
-.subsection {
-  margin-left: 10px;
-  border-left: 1px solid #2a2a2a;
-  padding-left: 10px;
+/* ===== VIEW CODE ===== */
+details summary {
+  color: #2dd4bf;
+  cursor: pointer;
+  user-select: none;
+}
+details summary:hover {
+  opacity: 0.85;
 }
 
-/* SUMMARY ARROW */
-.summary-header::before {
-  content: "▸";
-  position: absolute;
-  left: 20px;  /* align with new indent */
-  font-size: 0.85rem;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
+/* ===== TABLE ===== */
+.df-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.df-table th,
+.df-table td {
+  border: 1px solid #333;
+  padding: 8px;
 }
 
-.summary-header.collapsed::before {
-  transform: translateY(-50%) rotate(0deg);
+/* ===== CODE ===== */
+pre {
+  max-width: 100%;
+  overflow-x: auto;
 }
 
-.summary-content {
-  display: block;
-  margin-left: 48px;
+/* ===== IMAGES ===== */
+img {
+  max-width: 100%;
+  height: auto;
 }
-.summary-header.collapsed + .summary-content { display: none; }
 
-@media (min-width: 1024px) {
-  .container { max-width: 1200px; }
+/* ===== DESKTOP ===== */
+@media (min-width: 769px) {
   body { font-size: 18px; }
+  .container { max-width: 1200px; }
 }
 
-/* DAY MODE */
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  pre { font-size: 0.8rem; }
+}
+
+/* ===== LIGHT MODE ===== */
 body.light-mode {
   background: #ffffff;
   color: #111;
 }
-
-body.light-mode p {
-  color: #333;
-}
-
-body.light-mode h1,
-body.light-mode h2 {
-  color: #000;
-}
-
-body.light-mode .results {
-  background: #f4f4f4;
-  border: 1px solid #ddd;
-}
-
-body.light-mode details {
-  background: #fafafa;
-  border: 1px solid #ddd;
-}
-
-body.light-mode .subsection-header {
-  color: #2f5fd0;
-}
-
-body.light-mode .summary-header {
-  color: #cc8800;
-}
-
-body.light-mode a {
-  color: #2f5fd0;
-}
-
-
-/* =========================
-   TEAL UTILITY SYSTEM
-========================= */
-
-/* Back to Portfolio */
-.back-link {
-  color: #2dd4bf;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.back-link:hover {
-  color: #14b8a6;
-}
-
-/* View Code */
-details summary {
-  color: #2dd4bf;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-details summary:hover {
-  color: #14b8a6;
-}
-
-/* LIGHT MODE ADJUSTMENT */
-body.light-mode .back-link,
-body.light-mode details summary {
-  color: #0d9488;
-}
-
-body.light-mode .back-link:hover,
-body.light-mode details summary:hover {
-  color: #0f766e;
-}
-
-/* Smooth transitions */
-.back-link,
-details summary {
-  transition: color 0.2s ease;
-}
-
-
-/* =========================
-   DATAFRAME TABLE FIX
-========================= */
-
-.df-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 0.9rem;
-}
-
-.df-table th,
-.df-table td {
-  padding: 8px;
-  border: 1px solid #333;
-}
-
-.df-table thead {
-  background: #111;
-}
-
-/* LIGHT MODE */
-body.light-mode .df-table th,
-body.light-mode .df-table td {
-  border: 1px solid #ccc;
-}
-
-body.light-mode .df-table thead {
-  background: #eaeaea;
-}
-
-
-@media (min-width: 1024px) {
-  body { line-height: 1.85; }
-  p { margin-bottom: 18px; max-width: 900px; }
-  .subsection-content p,
-  .summary-content p { margin-bottom: 16px; }
-  h1 { margin-bottom: 16px; }
-  h2 { margin-top: 70px; margin-bottom: 18px; }
-  .subsection-header { margin-top: 30px; margin-bottom: 10px; }
-  .summary-content { margin-top: 10px; }
-  .results { margin-top: 20px; padding: 18px; }
-  table { margin-top: 12px; }
-}
-
-
-@media (max-width: 768px) {
-
-  body {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .container {
-    padding: 25px 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-    margin-top: 35px;
-    margin-bottom: 10px;
-  }
-
-  .subsection-header { font-size: 1.05rem; }
-  .summary-header { font-size: 0.95rem; }
-
-  p { margin-bottom: 12px; }
-
-  .results { padding: 12px; }
-
-  .df-table th,
-  .df-table td {
-    padding: 6px;
-    font-size: 0.8rem;
-  }
-
-  img { border-radius: 4px; }
-
-  .controls {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  button {
-    font-size: 0.8rem;
-    padding: 6px 8px;
-  }
-
-  /* =========================
-     CODE BLOCK FIX
-  ========================= */
-
-  pre {
-    overflow-x: auto;
-    white-space: pre;
-    word-break: normal;
-    padding: 10px;
-    font-size: 0.75rem;
-    line-height: 1.4;
-    background: #111;
-    border-radius: 6px;
-  }
-
-  body.light-mode pre {
-    background: #f4f4f4;
-  }
-
-  details {
-    overflow: hidden;
-  }
-
-}
+body.light-mode p { color: #333; }
 
 </style>
+
+<script>
+
+/* ===== DEFAULT STATE ===== */
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".section").forEach(section => {
+    const h = section.querySelector(":scope > h2");
+    if (!h || h.id === "project-overview") return;
+    section.classList.add("collapsed");
+  });
+
+  document.querySelectorAll(".subsection").forEach(sub => {
+    sub.classList.add("collapsed");
+  });
+
+  document.querySelectorAll(".summary-header").forEach(s => {
+    s.classList.add("collapsed");
+  });
+
+});
+
+/* ===== CLICK ===== */
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.querySelectorAll(".section > h2").forEach(h => {
+    if (h.id === "project-overview") return;
+    h.addEventListener("click", () => {
+      h.parentElement.classList.toggle("collapsed");
+    });
+  });
+
+  document.querySelectorAll(".subsection-header").forEach(h => {
+    h.addEventListener("click", () => {
+      h.closest(".subsection").classList.toggle("collapsed");
+    });
+  });
+
+  document.querySelectorAll(".summary-header").forEach(h => {
+    h.addEventListener("click", (e) => {
+      e.stopPropagation();
+      h.classList.toggle("collapsed");
+    });
+  });
+
+});
+
+/* ===== TOGGLE ALL ===== */
+let expanded = false;
+
+function toggleAll() {
+  const sections = document.querySelectorAll(".section, .subsection");
+  const summaries = document.querySelectorAll(".summary-header");
+
+  expanded = !expanded;
+
+  sections.forEach(el => {
+    const h = el.querySelector(":scope > h2");
+    if (h && h.id === "project-overview") return;
+    el.classList.toggle("collapsed", !expanded);
+  });
+
+  summaries.forEach(el => {
+    el.classList.toggle("collapsed", !expanded);
+  });
+
+  document.getElementById("toggleBtn").textContent =
+    expanded ? "Collapse all" : "Expand all";
+}
+
+/* ===== THEME ===== */
+function toggleMode() {
+  const body = document.body;
+  const btn = document.getElementById("modeBtn");
+
+  body.classList.toggle("light-mode");
+
+  if (body.classList.contains("light-mode")) {
+    btn.textContent = "Night";
+  } else {
+    btn.textContent = "Day";
+  }
+}
+
+</script>
+
 </head>
 
 <body>
@@ -365,7 +290,7 @@ body.light-mode .df-table thead {
 
 <div class="controls" style="gap:10px; align-items:center;">
   <button id="toggleBtn" onclick="toggleAll()">Expand all</button>
-  <button id="modeBtn" onclick="toggleMode()">Day Mode</button>
+  <button id="modeBtn" onclick="toggleMode()">Day</button>
 
   <a href="https://github.com/AlfredRico/Date-String-Manipulations-with-Python" target="_blank" style="display:flex; align-items:center;">
     <svg height="22" width="22" viewBox="0 0 16 16" fill="currentColor">
@@ -864,7 +789,7 @@ function toggleMode() {
   if (body.classList.contains("light-mode")) {
     btn.textContent = "Night Mode";
   } else {
-    btn.textContent = "Day Mode";
+    btn.textContent = "Day";
   }
 }
 
